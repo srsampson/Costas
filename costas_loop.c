@@ -49,8 +49,10 @@ void create_control_loop(float loop_bw, float min_freq, float max_freq) {
 }
 
 float phase_detector(complex float sample) {
-    return ((crealf(sample) > 0.0f ? 1.0f : -1.0f) * cimagf(sample) -
-            (cimagf(sample) > 0.0f ? 1.0f : -1.0f) * crealf(sample));
+    float re = crealf(sample);
+    float im = cimagf(sample);
+
+    return (((re > 0.0f ? 1.0f : -1.0f) * im) - ((im > 0.0f ? 1.0f : -1.0f) * re));
 }
 
 void update_gains() {
